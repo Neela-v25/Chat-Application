@@ -8,9 +8,9 @@ function UserPage() {
         <>
             <NavBar className='shrink-0' />
             <div className='flex flex-1 gap-2.5 h-full'>
-            <SideBar />
-            <Divider orientation="vertical" variant="middle" flexItem sx={{bgcolor: 'white'}}/>
-            <MainSection />
+              <SideBar />
+              <Divider orientation="vertical" variant="middle" flexItem sx={{bgcolor: 'white'}}/>
+              <MainSection />
             </div>
         </>
   )

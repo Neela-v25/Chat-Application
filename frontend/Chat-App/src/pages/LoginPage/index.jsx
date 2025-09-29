@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import InputForm from './InputForm';
-import { userActions } from '../../store';
+import { checkAuth, userActions } from '../../store';
 
 function LoginPage() {
 
@@ -14,6 +14,7 @@ function LoginPage() {
 
   const handleLogin = () => {
     console.log("Inside log in")
+    dispatch(checkAuth());
   }
 
   const createAccount = () => {
