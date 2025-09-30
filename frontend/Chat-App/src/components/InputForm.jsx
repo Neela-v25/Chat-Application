@@ -3,12 +3,15 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Button from '@mui/material/Button';
 
 
-function InputForm({isSignUp, handleLogin, handleSignUp, createAccount}) {
+function InputForm({isSignUp=false, handleLogin=()=>{}, handleSignUp=()=>{}, createAccount=()=>{}}) {
     const [showPassword, setShowPassword] = useState(false);
+    const userRef = useRef(null);
+    const passwordRef = useRef(null);
+    const fullNameRef = useRef(null);
 
     const handleClickShowPassword = () => {
     setShowPassword(prev => !prev)
@@ -22,25 +25,21 @@ function InputForm({isSignUp, handleLogin, handleSignUp, createAccount}) {
                 label="Username"
                 type="text"
                 sx={{ m: 1, width: '30ch' }}
+                inputRef={userRef}
             />
             {isSignUp && 
-                <>
-                    <TextField
-                        label="First Name"
-                        type="text"
-                        sx={{ m: 1, width: '30ch' }}
-                    />
-                    <TextField
-                        label="Last Name"
-                        type="text"
-                        sx={{ m: 1, width: '30ch' }}
-                    />
-                </>
+                <TextField
+                    label="Full Name"
+                    type="text"
+                    sx={{ m: 1, width: '30ch' }}
+                    inputRef={fullNameRef}
+                />
             }
             <TextField
                 label="Password"
                 type={showPassword ? "text" : "password"}
                 sx={{ m: 1, width: '30ch' }}
+                inputRef={passwordRef}
                 slotProps={{
                 input: {
                     endAdornment: <InputAdornment position="end">
@@ -56,7 +55,7 @@ function InputForm({isSignUp, handleLogin, handleSignUp, createAccount}) {
             <Button 
                 variant="contained" 
                 sx={{backgroundColor: "#501836"}} 
-                onClick={isSignUp? createAccount : handleLogin } 
+                onClick={isSignUp ? () =>createAccount(userRef.current.value, passwordRef.current.value, fullNameRef.current.value) : () => handleLogin(userRef.current.value, passwordRef.current.value) } 
             >
                 {isSignUp ? "Create Account" : "Login"}
             </Button>

@@ -5,6 +5,8 @@ import UserPage from './pages/UserPage';
 import SettingsPage from './pages/SettingsPage';
 import { Provider } from 'react-redux';
 import store from './store';
+import SignUpPage from './pages/SignUpPage';
+import SnackBar from './components/SnackBar';
 
 function App() {
 
@@ -14,10 +16,12 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/' element= {<LoginPage />} index />
+            <Route path ='/signup' element={<SignUpPage />} />
             <Route path='/:username' element= {<UserPage />} />
             <Route path='/:username/settings' element={<SettingsPage />}/>
           </Routes>
         </BrowserRouter>
+        <SnackBar toastMessage='Sample toast message'/>
       </div>
     </Provider>
   )

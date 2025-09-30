@@ -1,6 +1,6 @@
-import MainSection from '../../components/MainSection';
-import NavBar from '../../components/NavBar'
-import SideBar from '../../components/SideBar'
+import MainSection from '../components/MainSection';
+import NavBar from '../components/NavBar'
+import SideBar from '../components/SideBar'
 import Divider from '@mui/material/Divider'
 
 function UserPage() {
