@@ -4,21 +4,23 @@ import { authActions } from '../features/auth/authSlice';
 import { signup } from '../features/auth/authThunks'
 import LoadingPage from '../components/LoadingIndicator';
 import { useNavigate } from 'react-router';
+import { validateForm } from '../lib/validateForm';
 
 function SignUpPage() {
-      const isCheckingAuth = useSelector(state => state.isCheckingAuth);
+      const isCheckingAuth = useSelector(state => state.auth.isCheckingAuth);
       const dispatch = useDispatch();
       const navigate = useNavigate();
     
       const handleSignUp = () => {
-        console.log("Inside signup")
         dispatch(authActions.signup(true))
       }
     
     
       const createAccount = (username, password, fullName) => {
-        dispatch(signup({username, password, fullName}))
-        !isCheckingAuth && navigate("/")
+        if(validateForm(dispatch, {username, password, fullName})){
+          dispatch(signup({username, password, fullName}))
+          !isCheckingAuth && navigate("/")
+        }
       }
   return (
         <div className='bg-white m-auto h-4/6 w-4/6 border rounded-3xl flex justify-center items-center'>

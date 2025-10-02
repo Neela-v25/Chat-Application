@@ -1,13 +1,26 @@
+import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
+import { authActions } from "../features/auth/authSlice";
 
-function SnackBar({toastMessage}) {
-    const handleClose = () => {
+function SnackBar({toastMessage, status}) {
+  const [isClosed, setIsClosed] = useState(false)
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    const timer = setTimeout(()=>{
+      setIsClosed(true);
+      dispatch(authActions.setToast({isVisible: false}))
+    }, 3000)
+
+    return () => {
+      clearTimeout(timer);
     }
+  }, [])
+  
   return (
-    <div className="fixed bottom-4 left-4 p-4 bg-white text-black w-1/3">
+    <div className={`fixed bottom-4 left-4 p-4 text-white w-1/3 ${status==='error' ? 'bg-red-500' : 'bg-green-500'} ${isClosed && 'hidden'}`}>
         <div className='flex justify-between items-center'>
             <span>{toastMessage}</span>
-            <button onClick={handleClose}>X</button>
         </div>
     </div>
   )

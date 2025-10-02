@@ -4,11 +4,13 @@ import { login } from '../features/auth/authThunks'
 import LoadingPage from '../components/LoadingIndicator';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
+import { validateForm } from '../lib/validateForm';
+
 
 function LoginPage() {
 
-  const isCheckingAuth = useSelector(state => state.isCheckingAuth);
-  const loggedInUser = useSelector(state => state.loggedInUser);
+  const isCheckingAuth = useSelector(state => state.auth.isCheckingAuth);
+  const loggedInUser = useSelector(state => state.auth.loggedInUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,15 +20,12 @@ function LoginPage() {
   }, [loggedInUser, navigate])
 
   const handleSignUp = () => {
-    console.log("Inside signup")
     navigate("/signup")
   }
 
   const handleLogin = (username, password) => {
-    // if(!username || !password){
-
-    // }
-    dispatch(login({username, password}));
+    if(validateForm(dispatch, {username, password}))
+      dispatch(login({username, password}));
   }
 
   return (

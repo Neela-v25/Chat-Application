@@ -3,7 +3,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useSelector } from 'react-redux';
 
 export default function LoadingPage() {
-  const isCheckingAuth = useSelector(state => state.isCheckingAuth);
+  const isCheckingAuth = useSelector(state => state.auth.isCheckingAuth);
 
   return (
     <div>

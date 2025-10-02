@@ -14,7 +14,7 @@ function InputForm({isSignUp=false, handleLogin=()=>{}, handleSignUp=()=>{}, cre
     const fullNameRef = useRef(null);
 
     const handleClickShowPassword = () => {
-    setShowPassword(prev => !prev)
+        setShowPassword(prev => !prev)
     }
 
 
@@ -60,15 +60,15 @@ function InputForm({isSignUp=false, handleLogin=()=>{}, handleSignUp=()=>{}, cre
                 {isSignUp ? "Create Account" : "Login"}
             </Button>
             {!isSignUp && <div className='flex gap-1.5 items-center'>
-                <p>Don't have an account?</p>
-                <Button 
-                    size="small" 
-                    sx={{color: "#501836", fontWeight: "600"}} 
-                    onClick={handleSignUp}
-                >
-                    Sign up
-                </Button>
-            </div>}
+                    <p>Don't have an account?</p>
+                    <Button 
+                        size="small" 
+                        sx={{color: "#501836", fontWeight: "600"}} 
+                        onClick={handleSignUp}
+                    >
+                        Sign up
+                    </Button>
+                </div>}
             </form>
     )
 }

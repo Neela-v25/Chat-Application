@@ -10,6 +10,11 @@ const initialState = {
         profilePic: null,
         id: null,
         fullName: null,
+    },
+    toast: {
+        isVisible: false,
+        message: '',
+        status: '', // 'success/failure
     }
 }
 
@@ -20,6 +25,9 @@ const authSlice = createSlice({
     reducers: {
         signup(state, action) {
             state.isSignUp = action.payload;
+        },
+        setToast(state, action){
+            state.toast = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -40,8 +48,12 @@ const authSlice = createSlice({
             })
             .addCase(login.fulfilled, (state, action) => {
                 state.loggedInUser = action.payload;
-                console.log(action.payload);
-                state.isCheckingAuth = false
+                state.isCheckingAuth = false;
+                state.toast = {
+                    isVisible: true, 
+                    message: 'Logged in successfully', 
+                    status: 'success'
+                }
             })
             .addCase(login.rejected, (state) => {
                 state.isCheckingAuth = false
@@ -50,17 +62,26 @@ const authSlice = createSlice({
                 state.isCheckingAuth = true
             })
             .addCase(signup.fulfilled, (state) => {
-                console.log("Account created");
+                state.toast = {
+                        isVisible: true, 
+                        message: 'Accoount created successfully', 
+                        status: 'success'
+                    }
                 state.isCheckingAuth = false
             })
             .addCase(signup.rejected, (state) => {
                 state.isCheckingAuth = false
                 console.log("Error in creating account")
             })
-            .addCase(logout.fulfilled, (state) => {
-                console.log("Logged out");
-                state.loggedInUser = {}
-                state.authUser = false
+            .addCase(logout.fulfilled, () => {
+               return {
+                    ...initialState, 
+                    toast: {
+                        isVisible: true, 
+                        message: 'Logged out successfully', 
+                        status: 'success'
+                    }
+                }
             })
             .addCase(logout.rejected, (state) => {
                 state.isCheckingAuth = false
