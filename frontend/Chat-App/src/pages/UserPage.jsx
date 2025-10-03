@@ -7,7 +7,7 @@ function UserPage() {
   return (
         <>
             <NavBar className='shrink-0' />
-            <div className='flex flex-1 gap-2.5 h-full'>
+            <div className='flex flex-1 gap-2.5 h-full mt-5'>
               <SideBar />
               <Divider orientation="vertical" variant="middle" flexItem sx={{bgcolor: 'white'}}/>
               <MainSection />

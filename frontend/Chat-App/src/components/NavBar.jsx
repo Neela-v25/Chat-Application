@@ -18,7 +18,7 @@ function NavBar() {
   }
   return (
     <div className='w-screen h-10 bg-transparent flex justify-between items-center mt-5 p-2'>
-         Welcome {fullName}
+        <p className='text-3xl font-serif'>Hey {fullName}!!</p>
         <Link to={`/${username}/settings`} className='ml-auto mr-10 cursor-pointer' >
           <SettingsIcon />
         </Link>

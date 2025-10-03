@@ -87,7 +87,7 @@ export const logout = (req, res) => {
 
 export const updateProfile = async (req, res) => {
     try {
-        const {profilePic} = req.bosy;
+        const {profilePic} = req.body;
         const userId = req.user._id //since we have added the id in the protectroute
 
         if(!profilePic){

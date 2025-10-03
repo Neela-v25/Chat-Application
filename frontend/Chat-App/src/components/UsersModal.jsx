@@ -7,7 +7,9 @@ import {useSelector, useDispatch} from 'react-redux';
 import { useEffect } from 'react';
 import { getUsersList } from '../features/chat/userThunks';
 import Button from '@mui/material/Button'
-import { userActions } from '../features/chat/userSlice'
+import { userActions } from '../features/chat/userSlice';
+import avatar from '../assets/avatar.png'
+import Divider from '@mui/material/Divider'
 
 function UsersModal({onClose}) {
   const users = useSelector(state => state.user.usersList);
@@ -19,6 +21,7 @@ function UsersModal({onClose}) {
 
   const handleSelectUser = (user) => {
     dispatch(userActions.setUserToChat(user));
+    dispatch(userActions.setSelectedUser(user));
     onClose();
   }
 
@@ -31,7 +34,7 @@ function UsersModal({onClose}) {
         >
             
             <div>
-                Search Bar
+                <input type="text" placeholder='Search for a new user to chat' className='w-full bg-gray-300 rounded p-4 outline-none'/>
             </div>
             <List sx={{height: 'inherit', overflowY: 'auto'}}>
                 {users.map(item => 
@@ -41,12 +44,13 @@ function UsersModal({onClose}) {
                         sx={{
                             "&:hover": {
                             bgcolor: "grey",
-                            cursor: "pointer"
+                            cursor: "pointer",
                             },
                         }}
                         onClick={() => handleSelectUser(item)}
-                    >
-                    <ListItemText>{item.username}</ListItemText>
+                    > 
+                      <img src={item.profilePic || avatar} alt={item.username} className="rounded-4xl h-8 w-8" />
+                      <ListItemText className='ml-5'>{item.username}</ListItemText>
                     </ListItemButton>
                 )}
             </List>

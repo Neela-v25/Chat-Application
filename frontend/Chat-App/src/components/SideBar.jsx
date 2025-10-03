@@ -7,8 +7,8 @@ import {useSelector, useDispatch} from 'react-redux';
 import { useEffect, useState } from 'react';
 import UsersModal from './UsersModal';
 import { userActions } from '../features/chat/userSlice';
+import Divider from '@mui/material/Divider';
 
-//sx={{ width: '100%', maxWidth: 350, maxHeight: 'auto', bgcolor: 'transparent' }}
 function SideBar() {
   const users = useSelector(state => state.user.existingUsers);
   const dispatch = useDispatch()
@@ -30,7 +30,7 @@ function SideBar() {
   return (
     <div className='flex flex-col w-full max-w-90 max-h-full'>
         <div className='flex justify-between'>
-            <p className='text-3xl'>Messages</p>
+            <p className='text-2xl ml-4 font-serif'>Messages</p>
             <button className='text-3xl self-end cursor-pointer' onClick={handleClick}>+</button>
         </div>
         <List>
@@ -47,7 +47,7 @@ function SideBar() {
                     onClick={() => handleSelectChat(item)}
                 >
                     <ListItemAvatar>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                        <Avatar alt={item.username} src={item.profilePic} />
                     </ListItemAvatar>
                     <ListItemText
                         primary={item.username}

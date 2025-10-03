@@ -18,7 +18,7 @@ function SnackBar({toastMessage, status}) {
   }, [])
   
   return (
-    <div className={`fixed bottom-4 left-4 p-4 text-white w-1/3 ${status==='error' ? 'bg-red-500' : 'bg-green-500'} ${isClosed && 'hidden'}`}>
+    <div className={`fixed bottom-4 left-4 p-4 rounded shadow-md text-white w-1/3 ${status==='error' ? 'bg-red-400' : 'bg-green-500'} ${isClosed && 'hidden'}`}>
         <div className='flex justify-between items-center'>
             <span>{toastMessage}</span>
         </div>

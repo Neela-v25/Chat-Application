@@ -56,3 +56,15 @@ export const logout = createAsyncThunk(
         }
     }
 )
+
+export const updateProfilePic = createAsyncThunk(
+    "auth/updateProfile",
+    async(data, {rejectWithValue}) => {
+        try {
+            const res = await axiosInstance.put("auth/update-profile", data);
+            return res.data;
+        } catch (error) {
+            rejectWithValue(error.response.data)
+        }
+    }
+)

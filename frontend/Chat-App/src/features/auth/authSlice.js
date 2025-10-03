@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { checkAuth, login, signup, logout } from './authThunks';
+import { checkAuth, login, signup, logout, updateProfilePic } from './authThunks';
 
 const initialState = {
     authUser: null,
@@ -15,7 +15,8 @@ const initialState = {
         isVisible: false,
         message: '',
         status: '', // 'success/failure
-    }
+    },
+    isUpdatingProfile: false,
 }
 
 
@@ -86,6 +87,26 @@ const authSlice = createSlice({
             .addCase(logout.rejected, (state) => {
                 state.isCheckingAuth = false
                 console.log("Error in logging out")
+            })
+            .addCase(updateProfilePic.pending, (state) => {
+                state.isUpdatingProfile = true
+            })
+            .addCase(updateProfilePic.fulfilled, (state, action) => {
+                state.isUpdatingProfile = false;
+                state.loggedInUser.profilePic = action.payload.profilePic;
+                state.toast ={
+                    isVisible: true,
+                    message: "Profile picture updated",
+                    status: 'success'
+                }
+            })
+            .addCase(updateProfilePic.rejected, (state, action) => {
+                state.isUpdatingProfile = false;
+                state.toast = {
+                    isVisible: true,
+                    message: action.payload,
+                    status: 'error'
+                }
             })
     }
 })

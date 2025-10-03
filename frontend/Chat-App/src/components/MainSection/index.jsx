@@ -9,8 +9,8 @@ function MainSection() {
     <div className="flex flex-col gap-2 h-full w-full pb-2">
       {selectedUser  ? 
         <>
-          <Header fullName={selectedUser?.fullName}/>
-          <ChatComponent />
+          <Header selectedUser={selectedUser}/>
+          <ChatComponent selectedUser={selectedUser}/>
           <Footer />
         </> 
         : 
