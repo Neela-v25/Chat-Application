@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import Message from "../models/message.model.js";
 
 import cloudinary from "../lib/cloudinary.js";
+import mongoose from "mongoose";
 
 
 export const getUsersList = async (req, res) => {
@@ -22,7 +23,7 @@ export const getMessages = async (req, res) => {
         const loggedInUser = req.user._id;
         const selectedUserId = req.params.id;
         
-        const messages = Message.find({
+        const messages = await Message.find({
             $or: [
                 { senderId: loggedInUser, receiverId: selectedUserId },
                 { senderId : selectedUserId, receiverId: loggedInUser}
@@ -39,9 +40,8 @@ export const getMessages = async (req, res) => {
 export const sendMessage = async (req, res) => {
     try {
         const senderId = req.user._id;
-        const receiverId = req.params.id;
 
-        const {text, image} = req.body;
+        const {receiverId, text, image} = req.body;
 
         let imageUrl;
         if(image){
@@ -61,6 +61,37 @@ export const sendMessage = async (req, res) => {
         res.status(201).json(newMessage)
     } catch (error) {
         console.error("Error in sendMessage: ", error.message);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+export const getFriendsList = async (req, res) => {
+    try {
+        const loggedInUser = req.params.userId;
+        const allUserMessages = await Message.find({
+            $or: [
+                {senderId: loggedInUser},
+                {receiverId: loggedInUser}
+            ]
+        })
+
+        console.log(allUserMessages)
+
+        const friendIds = new Set();
+        
+        allUserMessages.forEach(msg => {
+            if(msg.senderId.toString() !== loggedInUser.toString())
+                friendIds.add(msg.senderId);
+            if(msg.receiverId.toString() !== loggedInUser.toString())
+                friendIds.add(msg.receiverId);
+        })
+
+        const friendsList = await User.find({
+            _id: { $in : Array.from(friendIds).map(id => new mongoose.Types.ObjectId(id)) }
+        }).select("-password");
+
+        res.status(201).json(friendsList);
+    } catch(err){
         res.status(500).json({ error: "Internal server error" });
     }
 }

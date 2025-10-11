@@ -14,3 +14,40 @@ export const getUsersList = createAsyncThunk(
         }
     }
 )
+
+export const getMessages = createAsyncThunk(
+    "message/getMessages",
+    async(receiverId, { rejectWithValue }) =>{
+        try {
+            const res = await axiosInstance.get(`/message/${receiverId}`)
+            return res.data;
+        } catch (error) {
+            rejectWithValue(error.response.data)
+        }
+    }
+)
+
+export const sendMessage = createAsyncThunk(
+    "message/sendMessage",
+    async(data, { rejectWithValue }) => {
+        const { receiverId } = data;
+        try {
+            const res = await axiosInstance.post(`/message/send/${receiverId}`, data);
+            return res.data;
+        } catch (error) {
+           rejectWithValue(error.response.data); 
+        }
+    }
+)
+
+export const getFriendsList = createAsyncThunk(
+    "message/getFriendsList",
+    async(loggedInUser, {rejectWithValue}) => {
+        try {
+            const res = await axiosInstance.get(`/message/${loggedInUser}/users`);
+            return res.data;
+        } catch (error) {
+            rejectWithValue(error.response.data)
+        }
+    }
+)

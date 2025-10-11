@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { checkAuth, login, signup, logout, updateProfilePic } from './authThunks';
 
 const initialState = {
-    authUser: null,
     isSignUp: false,
     isCheckingAuth: false,
     loggedInUser: {
@@ -37,11 +36,11 @@ const authSlice = createSlice({
                 state.isCheckingAuth = true;
             })
             .addCase(checkAuth.fulfilled, (state, action) => {
-                state.authUser = action.payload;
+                state.loggedInUser = action.payload;
                 state.isCheckingAuth = false;
             })
             .addCase(checkAuth.rejected, (state) => {
-                state.authUser = null;
+                state.loggedInUser = null;
                 state.isCheckingAuth = false;
             })
             .addCase(login.pending, state => {
@@ -74,6 +73,9 @@ const authSlice = createSlice({
                 state.isCheckingAuth = false
                 console.log("Error in creating account")
             })
+            .addCase(logout.pending, (state) => {
+                state.isCheckingAuth = true
+            })
             .addCase(logout.fulfilled, () => {
                return {
                     ...initialState, 
@@ -81,7 +83,7 @@ const authSlice = createSlice({
                         isVisible: true, 
                         message: 'Logged out successfully', 
                         status: 'success'
-                    }
+                    },
                 }
             })
             .addCase(logout.rejected, (state) => {

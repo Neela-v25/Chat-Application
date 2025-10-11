@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import InputForm from '../components/InputForm';
-import { login } from '../features/auth/authThunks'
+import { checkAuth, login } from '../features/auth/authThunks'
 import LoadingPage from '../components/LoadingIndicator';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
@@ -16,7 +16,7 @@ function LoginPage() {
 
   useEffect(()=>{
     if(loggedInUser.username)
-      navigate(`/${loggedInUser.username}`)
+      navigate(`/${loggedInUser._id}`)
   }, [loggedInUser, navigate])
 
   const handleSignUp = () => {
@@ -24,8 +24,9 @@ function LoginPage() {
   }
 
   const handleLogin = (username, password) => {
-    if(validateForm(dispatch, {username, password}))
+    if(validateForm(dispatch, {username, password})){
       dispatch(login({username, password}));
+    }
   }
 
   return (

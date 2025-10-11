@@ -16,7 +16,8 @@ function App() {
           <Routes>
             <Route path='/' element= {<LoginPage />} index />
             <Route path ='/signup' element={<SignUpPage />} />
-            <Route path='/:username' element= {<UserPage />} />
+            <Route path='/:userId' element={<UserPage />} />
+            <Route path='/:userId/chat/:receiverId' element= {<UserPage />} />
             <Route path='/:username/settings' element={<SettingsPage />}/>
           </Routes>
         </BrowserRouter>

@@ -5,13 +5,14 @@ import { useSelector } from 'react-redux';
 
 function MainSection() {
   const selectedUser = useSelector(state => state.user.selectedUser);
+
   return (
     <div className="flex flex-col gap-2 h-full w-full pb-2">
       {selectedUser  ? 
         <>
           <Header selectedUser={selectedUser}/>
           <ChatComponent selectedUser={selectedUser}/>
-          <Footer />
+          <Footer selectedUser={selectedUser}/>
         </> 
         : 
         <div className='m-auto text-2xl'>Open a chat to view and send messages!</div>

@@ -1,12 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUsersList } from './userThunks';
+import { getFriendsList, getMessages, getUsersList, sendMessage } from './userThunks';
+import { logout } from '../auth/authThunks';
 
 const initialState = {
     usersList: [],
     selectedUser: null,
     isFetchingUsers: false,
     userToChat: null,
-    existingUsers: []
+    existingUsers: [],
+    messageHistory: [],
+    isMessagesLoading: false, 
 }
 
 const userSlice = createSlice({
@@ -28,10 +31,40 @@ const userSlice = createSlice({
         })
         .addCase(getUsersList.fulfilled, (state, action)=>{
             state.isFetchingUsers = false;
-            state.usersList = action.payload;
+            state.usersList = action.payload.filter(user => !state.existingUsers.some(item => item._id === user._id))
         })
-        .addCase(getUsersList.rejected, (state) => {
+        .addCase(getUsersList.rejected, () => {
             console.log("Error fetching users")
+        })
+        .addCase(sendMessage.pending, () => {
+
+        })
+        .addCase(sendMessage.fulfilled, (state, action) => {
+            state.messageHistory.push(action.payload);
+        })
+        .addCase(sendMessage.rejected, () => {
+
+        })
+        .addCase(getMessages.pending, (state) => {
+            state.isMessagesLoading = true;
+            state.messageHistory = [];
+        })
+        .addCase(getMessages.fulfilled, (state, action)=>{
+            state.messageHistory = action.payload;
+            state.isMessagesLoading = false;
+        })
+        .addCase(getMessages.rejected, (state, action)=>{
+            console.log(action.payload)
+        })
+        .addCase(logout.fulfilled, () => {
+            return initialState
+        })
+        .addCase(getFriendsList.pending, (state) => {
+            state.isFetchingUsers = true;
+        })
+        .addCase(getFriendsList.fulfilled, (state, action) => {
+            state.isFetchingUsers = false;
+            state.existingUsers = action.payload;
         })
     }
 })
