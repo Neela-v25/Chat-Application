@@ -17,6 +17,7 @@ function SideBar() {
   const dispatch = useDispatch();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { openChatAndNavigate } = useNavigateActions();
+  const selectedUser = useSelector(state => state.user.selectedUser)
 
   useEffect(() => {
     if (loggedInUser?._id) dispatch(getFriendsList(loggedInUser._id));
@@ -46,6 +47,7 @@ function SideBar() {
               alignItems="flex-start"
               key={item.username}
               sx={{
+                bgcolor: selectedUser?._id === item._id && "rgba(255,255,255,0.1)",
                 "&:hover": {
                   bgcolor: "rgba(255,255,255,0.1)",
                   cursor: "pointer",

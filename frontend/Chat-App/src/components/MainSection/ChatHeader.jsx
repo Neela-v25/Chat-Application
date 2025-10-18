@@ -1,6 +1,6 @@
 import Avatar from "@mui/material/Avatar";
 
-function Header({ selectedUser }) {
+function ChatHeader({ selectedUser }) {
   return (
     <div className="flex items-center gap-2.5 bg-transparent shrink-0">
       <Avatar alt={selectedUser?.username} src={selectedUser?.profilePic} />
@@ -9,4 +9,4 @@ function Header({ selectedUser }) {
   );
 }
 
-export default Header;
+export default ChatHeader;

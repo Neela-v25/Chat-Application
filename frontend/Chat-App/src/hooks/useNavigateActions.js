@@ -14,7 +14,7 @@ export const useNavigateActions = () => {
   };
 
   const logoutAndNavigate = () => {
-    dispatch(logout());
+    dispatch(logout()).unwrap();
     if (!loggedInUser.id) navigate("/");
   };
 
