@@ -13,9 +13,13 @@ export const useNavigateActions = () => {
     navigate(`/${loggedInUser._id}/chat/${user.username}`);
   };
 
-  const logoutAndNavigate = () => {
-    dispatch(logout()).unwrap();
-    if (!loggedInUser.id) navigate("/");
+  const logoutAndNavigate = async () => {
+    try {
+      await dispatch(logout()).unwrap();
+      navigate("/");
+    } catch (err) {
+      console.error("Error in logout", err);
+    }
   };
 
   return { openChatAndNavigate, logoutAndNavigate };

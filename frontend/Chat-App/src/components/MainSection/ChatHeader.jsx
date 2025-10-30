@@ -1,9 +1,10 @@
 import Avatar from "@mui/material/Avatar";
+import AvatarBadge from "../AvatarBadge";
 
 function ChatHeader({ selectedUser }) {
   return (
     <div className="flex items-center gap-2.5 bg-transparent shrink-0">
-      <Avatar alt={selectedUser?.username} src={selectedUser?.profilePic} />
+      <AvatarBadge alt={selectedUser?.username} src={selectedUser?.profilePic} userId={selectedUser._id} />
       <h3 className="text-lg font-semibold">{selectedUser?.fullName}</h3>
     </div>
   );

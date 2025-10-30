@@ -7,7 +7,7 @@ const initialState = {
     loggedInUser: {
         username: null,
         profilePic: null,
-        id: null,
+        _id: null,
         fullName: null,
     },
     toast: {

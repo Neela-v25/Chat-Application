@@ -14,7 +14,7 @@ function UsersModal({ onClose }) {
   const users = useSelector((state) => state.user.usersList);
   const isFetchingUsers = useSelector((state) => state.user.isFetchingUsers);
   const dispatch = useDispatch();
-  const openChatAndNavigate = useNavigateActions();
+  const { openChatAndNavigate } = useNavigateActions();
 
   useEffect(() => {
     dispatch(getUsersList());

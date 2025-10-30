@@ -11,7 +11,7 @@ function NavBar() {
   const { logoutAndNavigate } = useNavigateActions();
 
   return (
-    <div className="w-screen h-10 bg-transparent flex justify-between items-center mt-5 p-2">
+    <div className="w-screen h-10 bg-transparent flex justify-between items-center mt-3 mb-2 p-2">
       <Link to={`/${_id}`} className="text-3xl font-serif">Hey {fullName}!!</Link>
       <Link
         to={`/${username}/settings`}

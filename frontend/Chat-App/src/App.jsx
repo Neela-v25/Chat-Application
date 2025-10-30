@@ -15,13 +15,15 @@ function App() {
     <div className="flex flex-col h-screen">
       <BrowserRouter>
         {loggedInUser?._id && <NavBar className="shrink-0" />}
-        <Routes>
-          <Route path="/" element={<LoginPage />} index />
-          <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/:userId" element={<UserPage />} />
-          <Route path="/:userId/chat/:receiverId" element={<UserPage />} />
-          <Route path="/:username/settings" element={<SettingsPage />} />
-        </Routes>
+        <div className="flex-1 overflow-hidden">
+          <Routes>
+            <Route path="/" element={<LoginPage />} index />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/:userId" element={<UserPage />} />
+            <Route path="/:userId/chat/:receiverId" element={<UserPage />} />
+            <Route path="/:username/settings" element={<SettingsPage />} />
+          </Routes>
+        </div>
       </BrowserRouter>
       {toast.isVisible && (
         <SnackBar toastMessage={toast.message} status={toast.status} />

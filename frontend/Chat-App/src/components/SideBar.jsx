@@ -9,6 +9,7 @@ import UsersModal from "./UsersModal";
 import { useNavigateActions } from "../hooks/useNavigateActions";
 import { getFriendsList } from "../features/chat/userThunks";
 import { UserSkeleton } from "./Skeleton";
+import AvatarBadge from "./AvatarBadge";
 
 function SideBar() {
   const users = useSelector((state) => state.user.existingUsers);
@@ -17,7 +18,7 @@ function SideBar() {
   const dispatch = useDispatch();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { openChatAndNavigate } = useNavigateActions();
-  const selectedUser = useSelector(state => state.user.selectedUser)
+  const selectedUser = useSelector((state) => state.user.selectedUser);
 
   useEffect(() => {
     if (loggedInUser?._id) dispatch(getFriendsList(loggedInUser._id));
@@ -40,14 +41,16 @@ function SideBar() {
       </div>
       <List>
         {isFetchingUsers ? (
-          <UserSkeleton isSideBar={true}/>
+          <UserSkeleton isSideBar={true} />
         ) : (
           users?.map((item) => (
             <ListItemButton
-              alignItems="flex-start"
+              alignItems="flex-start items-center"
               key={item.username}
               sx={{
-                bgcolor: selectedUser?._id === item._id && "rgba(255,255,255,0.1)",
+                gap: "3px",
+                bgcolor:
+                  selectedUser?._id === item._id && "rgba(255,255,255,0.1)",
                 "&:hover": {
                   bgcolor: "rgba(255,255,255,0.1)",
                   cursor: "pointer",
@@ -56,17 +59,10 @@ function SideBar() {
               onClick={() => openChatAndNavigate(item)}
             >
               <ListItemAvatar>
-                <Avatar alt={item.username} src={item.profilePic} />
+                <AvatarBadge sourceImg={item.profilePic} alt={item.username} userId={item._id} />
               </ListItemAvatar>
               <ListItemText
                 primary={item.username}
-                secondary={"Message"}
-                slotProps={{
-                  secondary: {
-                    display: "inline",
-                    sx: { color: "white", marginLeft: "5px" },
-                  },
-                }}
               />
             </ListItemButton>
           ))

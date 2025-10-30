@@ -22,6 +22,9 @@ const userSlice = createSlice({
         setUserToChat(state, action){
             state.userToChat = action.payload;
             state.existingUsers.unshift(action.payload)
+        },
+        addMessage(state, action){
+            state.messageHistory.push(action.payload)
         }
     },
     extraReducers: (builder) => {

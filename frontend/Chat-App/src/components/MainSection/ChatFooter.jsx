@@ -47,7 +47,7 @@ function ChatFooter({ selectedUser }) {
   };
 
   return (
-    <div className="flex gap-4 p-2 h-20 w-11/12 border rounded mt-auto">
+    <div className="flex gap-4 p-2 h-18 w-11/12 border rounded">
       {imgPreview && (
         <div className="relative w-20 h-20">
           <img src={imgPreview} alt="" className="opacity-50 rounded-xl" />

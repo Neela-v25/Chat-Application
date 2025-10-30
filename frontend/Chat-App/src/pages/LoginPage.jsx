@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import InputForm from '../components/InputForm';
-import { checkAuth, login } from '../features/auth/authThunks'
+import { login } from '../features/auth/authThunks'
 import LoadingPage from '../components/LoadingIndicator';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
@@ -30,7 +30,7 @@ function LoginPage() {
   }
 
   return (
-    <div className='bg-white m-auto h-4/6 w-4/6 border rounded-3xl flex justify-center items-center'>
+    <div className='bg-white m-auto mt-30 h-4/6 w-4/6 border rounded-3xl flex justify-center items-center'>
         <InputForm 
           handleLogin={handleLogin} 
           handleSignUp={handleSignUp} 
