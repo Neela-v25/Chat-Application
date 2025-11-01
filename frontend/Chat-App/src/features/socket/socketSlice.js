@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { io } from "socket.io-client";
 
-const BASE_URL = import.meta.env.mode === "development" ? "http://localhost:5001/api" : "/api";
+const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5001" : "/";
 
 const initialState = {
   socket: null,
